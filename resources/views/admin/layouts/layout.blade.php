@@ -143,7 +143,7 @@
 
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="{{route('addProduct')}}" class="menu-link">
+                  <a href="{{route('product.create')}}" class="menu-link">
                     <div class="text-truncate" data-i18n="Without menu">Add  Products</div>
                   </a>
                 </li>
@@ -422,5 +422,6 @@
 		}
 
 	</script>
+  @yield('script')
   </body>
 </html>

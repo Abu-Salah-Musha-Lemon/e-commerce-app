@@ -25,8 +25,9 @@
               <td>{{$items->subcategory_name}}</td>
               <td>{{$items->product_count}}</td>
               <td>
-                  <button type="button" class="btn btn-outline-primary">Edit</button>
-                  <button type="button" class="btn btn-outline-danger">Delete</button>
+              <a href="{{ route('subcategory.edit',$items->id) }}" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></a>
+              <a href="{{ route('subcategory.destroy',$items->id) }}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a>
+         
               </td>
               
             </tr>

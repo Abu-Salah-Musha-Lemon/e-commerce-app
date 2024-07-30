@@ -59,27 +59,48 @@ class SubcategoryController extends Controller
   
 }
 
-  
-  
-  public function show(string $id)
-  {
-      //
-  }
 
   public function edit(string $id)
   {
-      //
+    $subcategory_info = Subcategory::findOrFail($id);
+    return view('admin.subcategory.editSubCategory',compact('subcategory_info'));
   }
 
   public function update(Request $request, string $id)
   {
-      //
+    Subcategory::findOrFail($id)->update(
+      [
+       'subcategory_name' => $request->input('subcategory_name'),
+       'slug' => strtolower(str_replace(' ', '-', $request->input('subcategory_name')))
+      ]
+   );
+   return redirect()->route('subcategory.index')->with([
+       'message' => 'Subcategory update successfully!',
+       'alert-type' => 'success'
+   ]);
   }
 
  
   public function destroy(string $id)
   {
-      //
+      // Find the Subcategory by its ID
+      $subcategory = Subcategory::findOrFail($id);
+  
+      // Retrieve the category_id from the subcategory
+      $cat_id = $subcategory->category_id;
+  
+      // Delete the subcategory
+      $subcategory->delete();
+  
+      // Decrement the subCategory_count on the related Category
+      Category::where('id', $cat_id)->decrement('subCategory_count', 1);
+  
+      // Redirect with success message
+      return redirect()->route('subcategory.index')->with([
+          'message' => 'Subcategory deleted successfully!',
+          'alert-type' => 'success'
+      ]);
   }
+  
 }
 

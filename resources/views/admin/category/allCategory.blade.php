@@ -12,7 +12,7 @@
             <tr class="text-nowrap">
               <th>#</th>
               <th>Category Name</th>
-              <th>Slug</th>
+              
               <th>Sub Category Name</th>
               <th>Products</th>
               <th>Actions</th>
@@ -24,7 +24,7 @@
             <tr>
               <th scope="row">{{$items->id}}</th>
               <td>{{$items->category_name}}</td>
-              <td>{{$items->slug}}</td>
+             
               <td>{{$items->subCategory_count}}</td>
               <td>{{$items->product_count}}</td>
              
