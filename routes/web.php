@@ -50,6 +50,7 @@ Route::middleware('auth','role:user')->group(function(){
         Route::get('admin/product/{id}/edit', 'edit')->name("product.edit");
         Route::get('admin/product/{id}/update', 'update')->name("product.update");
         Route::get('admin/product/{id}/destroy', 'destroy')->name("product.destroy");
+        Route::get('admin/product/{id}/show', 'show')->name("product.show");
         // Route::get('admin/product', 'store');
         // Route::get('admin/product', 'update');
         // Route::get('admin/product', 'view');

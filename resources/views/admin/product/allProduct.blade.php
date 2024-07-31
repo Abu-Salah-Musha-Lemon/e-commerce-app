@@ -6,42 +6,50 @@
   <div class="card">
       <h5 class="card-header">All Products</h5>
       <div class="table-responsive text-nowrap">
-        <table class="table">
-          <thead>
-            <tr class="text-nowrap">
-              <th>#</th>
-              <th>Product Name</th>
-              <th>Product Short Description Name</th>
-              <th>Product Price</th>
-              <th>Product Category Name</th>
-              <th>Product Sub Category Name</th>
-              <th>Product Count</th>
-              <th>Product image</th>
-              <th>Product Slug</th>
-              <th>Actions</th>
-              
-            </tr>
-          </thead>
-          <tbody class="table-border-bottom-0">
+      <table class="table">
+    <thead>
+        <tr class="text-nowrap">
+            <th>#</th>
+            <th>Product Name</th>
+           
+            <th>Product Price</th>
+           
+            <th>Product Count</th>
+            <th>Product Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody class="table-border-bottom-0">
+        @foreach($products as $product)
             <tr>
-              <th scope="row">1</th>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>
-                  <button type="button" class="btn btn-outline-primary">Edit</button>
-                  <button type="button" class="btn btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-outline-danger">Delete</button>
-              </td>
-              
+                <th scope="row">{{ $loop->iteration }}</th>
+                <td>{{ $product->product_name }}</td>
+                
+                <td>${{ number_format($product->product_price, 2) }}</td>
+                
+                <td>{{ $product->product_quantity }}</td>
+                <td>
+                    @if($product->product_img)
+                        <img src="{{ asset('products/' . $product->product_img) }}" alt="{{ $product->product_name }}" width="40" height="40">
+                    @else
+                        No product_img
+                    @endif
+                </td>
+                
+                <td>
+                    <a href="{{ route('product.edit', $product->id) }}" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></a>
+                    <a href="{{ route('product.show', $product->id) }}" class="btn btn-outline-secondary"><i class="bi bi-eye"></i></a>
+                    <form action="{{ route('product.destroy', $product->id) }}" method="get" style="display:inline;">
+                        @csrf
+                        
+                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></button>
+                    </form>
+                </td>
             </tr>
-          </tbody>
-        </table>
+        @endforeach
+    </tbody>
+</table>
+
       </div>
     </div>
   </div>
