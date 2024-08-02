@@ -6,14 +6,32 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\SubcategoryController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ClientController;
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('userTemp.layout');
+// });
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::controller(HomeController::class)->group(function(){
+    Route::get('/', 'index')->name('home');
+});
+Route::controller(ClientController::class)->group(function(){
+    Route::get('/category/{id}/{slug}', 'CategoryPage')->name('categoryPage');
+    Route::get('/single-product/{id}', 'singleProduct')->name('singleProduct');
+    Route::get('/add-to-cart/{id}', 'addToCart')->name('addToCart');
+    Route::get('/user-profile', 'userProfile')->name('userProfile');
+    Route::get('/checkout', 'checkout')->name('checkout');
+    Route::get('/new-release', 'newRelease')->name('newRelease');
+    Route::get('/todays-deal', 'todaysDeal')->name('todaysDeal');
+    Route::get('/customer-service', 'customerService')->name('customerService');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -22,7 +40,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware('auth','role:user')->group(function(){
+Route::middleware('auth','role:admin')->group(function(){
     Route::controller(DashboardController::class)->group(function(){
         Route::get('admin/dashboard', 'index')->name('adminDashboard');
     });

@@ -70,6 +70,13 @@ class ProductController extends Controller
         'product_img' => $img_name, // Ensure consistency here
         'slug' => strtolower(str_replace(' ', '-', $request->input('product_name')))
     ]);
+        // Update the product count in the related category and subcategory
+        $category_id = $request->input('product_category_id');
+        $subcategory_id = $request->input('product_subcategory_id');
+
+        Category::where('id', $category_id)->increment('product_count',1);
+        SubCategory::where('id', $subcategory_id)->increment('product_count',1);
+
         // Redirect with success message
         return redirect()->route('product')->with([
             'message' => 'Product created successfully!',
@@ -152,19 +159,25 @@ class ProductController extends Controller
     {
         // Step 1: Find the product by ID
         $product = Product::findOrFail($id);
+        $cat_id = Product::where('id',$id)->value('product_category_id');
+        $subcat_id = Product::where('id',$id)->value('product_subcategory_id');
 
+        Category::where('id',$cat_id)->decrement('product_count',1);
+        SubCategory::where('id',$cat_id)->decrement('product_count',1);
+        // return $id;exit;
         // Step 2: Delete the product image if it exists
         if ($product->product_img) {
             // Construct the full path to the image
             $imagePath = 'public/products/' . $product->product_img;
-
-            // Check if the file exists before deleting
-            if (Storage::exists($imagePath)) {
-                Storage::delete($imagePath);
+            //  return $imagePath;exit;
+               // Check if the file exists before deleting
+               if (file_exists($imagePath)) {
+                unlink($imagePath);
             } else {
                 // Optionally log an error or message if the file doesn't exist
                 \Log::warning("Image not found for product ID {$id}: {$imagePath}");
             }
+    
         }
 
         // Step 3: Delete the product record
