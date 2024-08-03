@@ -19,6 +19,8 @@
       <link rel="stylesheet" type="text/css" href="{{asset('userTemp/css/style.css')}}">
       <!-- Responsive-->
       <link rel="stylesheet" href="{{asset('userTemp/css/responsive.css')}}">
+      <link href="{{asset('customcssjs/bootstrap-icons.min.css')}}" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
       <!-- fevicon -->
       <link rel="icon" href="{{asset('userTemp/images/fevicon.png')}}" type="image/gif" />
       <!-- Scrollbar Custom CSS -->
@@ -77,7 +79,7 @@
                <div class="containt_main">
                   <div id="mySidenav" class="sidenav">
                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                     <a href="index.html">Home</a>
+                     <a href="{{route('home')}}">Home</a>
                      @php 
                      $category = App\Models\category::latest()->get();
                      @endphp
@@ -90,7 +92,6 @@
                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
                      </button>
                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
                         @foreach ($category as $items)
                         <a class="dropdown-item" href="{{route('categoryPage',[$items->id,$items->slug])}}">{{$items->category_name}}</a>
                         @endforeach
@@ -179,10 +180,10 @@
       </div>
       <!-- banner bg main end -->
        
-      <div class="main" style="margin:10px">
+     
        @yield('main')
 
-</div>
+
     
     
       

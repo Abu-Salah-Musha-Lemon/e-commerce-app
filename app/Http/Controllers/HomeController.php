@@ -12,7 +12,8 @@ class HomeController extends Controller
     public function index()
     { 
         // $category = Category::where($id)->FindOrFild()->get();
-        return view('userTemp.home');
+        $product=Product::latest()->get();
+        return view('userTemp.home',compact('product'));
     }
 
     

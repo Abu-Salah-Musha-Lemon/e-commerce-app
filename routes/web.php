@@ -23,8 +23,9 @@ Route::controller(HomeController::class)->group(function(){
 });
 Route::controller(ClientController::class)->group(function(){
     Route::get('/category/{id}/{slug}', 'CategoryPage')->name('categoryPage');
+    // Route::get('/subcategory', 'subcategoryPage')->name('subcategoryPage');
     Route::get('/single-product/{id}', 'singleProduct')->name('singleProduct');
-    Route::get('/add-to-cart/{id}', 'addToCart')->name('addToCart');
+    Route::get('/add-to-cart', 'addToCart')->name('addToCart');
     Route::get('/user-profile', 'userProfile')->name('userProfile');
     Route::get('/checkout', 'checkout')->name('checkout');
     Route::get('/new-release', 'newRelease')->name('newRelease');

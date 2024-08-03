@@ -10,15 +10,34 @@ class ClientController extends Controller
 {
    
     public function CategoryPage($id){
-        $category = Category::where($id)->FindOrFild()->get();
-        return view('userTemp.categoryPage',compact('category'));
+        $category = Category::findOrFail($id);
+        $product = product::where('product_category_id',$id)->latest()->get();
+        return view('userTemp.categoryPage',compact('category','product'));
+    }
+
+     public function singleProduct($id) {
+        try {
+            // Fetch the specific product by ID
+            $product = Product::findOrFail($id);
+    
+            // Fetch related products based on the subcategory of the current product
+            $relatedProducts = Product::where('product_subcategory_id', $product->product_subcategory_id)
+                                      ->where('id', '!=', $product->id) // Exclude the current product
+                                      ->get();
+    
+            // Fetch categories and subcategories for the view
+            $category = Category::all();
+            $subcategory = SubCategory::all();
+            
+            return view('userTemp.singleProduct', compact('product', 'category', 'subcategory', 'relatedProducts'));
+        } catch (ModelNotFoundException $e) {
+            // Handle the case where no product is found
+            return redirect()->route('errorPage')->with('error', 'Product not found');
+        }
     }
     
-
-//     public function singleProduct(){
-// return view('userTemp.categoryPage');
-//     }
     public function addToCart(){
+
 return view('userTemp.singlePage');
     }
     public function checkout(){
