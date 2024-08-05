@@ -25,12 +25,11 @@ Route::controller(ClientController::class)->group(function(){
     Route::get('/category/{id}/{slug}', 'CategoryPage')->name('categoryPage');
     // Route::get('/subcategory', 'subcategoryPage')->name('subcategoryPage');
     Route::get('/single-product/{id}', 'singleProduct')->name('singleProduct');
-    Route::get('/add-to-cart', 'addToCart')->name('addToCart');
-    Route::get('/user-profile', 'userProfile')->name('userProfile');
+    
     Route::get('/checkout', 'checkout')->name('checkout');
     Route::get('/new-release', 'newRelease')->name('newRelease');
     Route::get('/todays-deal', 'todaysDeal')->name('todaysDeal');
-    Route::get('/customer-service', 'customerService')->name('customerService');
+    
 });
 
 
@@ -38,6 +37,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+Route::middleware('auth','role:user')->group(function () {
+    Route::controller(ClientController::class)->group(function(){
+        Route::get('/add-to-cart', 'addToCart')->name('addToCart');
+        Route::post('/add-product-to-cart/{id}', 'addProductToCart')->name('addProductToCart');
+        Route::get('/user-profile', 'userProfile')->name('userProfile');
+        Route::get('/user-profile/pending-order', 'pendingOrder')->name('pendingOrder');
+        Route::get('/user-profile/history', 'userHistory')->name('userHistory');
+        Route::get('/checkout', 'checkout')->name('checkout');
+        Route::get('/todays-deal', 'todaysDeal')->name('todaysDeal');
+        Route::get('/customer-service', 'customerService')->name('customerService');
+    });
 });
 
 

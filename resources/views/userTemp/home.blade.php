@@ -12,25 +12,34 @@
           <div class="fashion_section_2">
             <div class="row">
 
-       @foreach ($product as $items)
-       <div class="col-lg-4 col-sm-4">
+              @foreach ($product as $items)
+              <div class="col-lg-4 col-sm-4">
                 <div class="box_main">
                   <h4 class="shirt_text">{{$items->product_name}}</h4>
                   <p class="price_text">Start Price <span style="color: #262626;">$ {{$items->product_price}}</span></p>
-                  <div class="electronic_img"> <img src="{{ asset('products/' . $items->product_img) }}" alt="{{ $items->product_name }}"></div>
+                  <div class="electronic_img"> <img src="{{ asset('products/' . $items->product_img) }}"
+                      alt="{{ $items->product_name }}"></div>
                   <div class="btn_main">
-                    <div class="buy_bt"><a href="#">Buy Now</a></div>
+                    <div class="buy_bt">
+
+                      <form action="{{ route('addProductToCart', $items->id) }}" method="post">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $items->id }}">
+                        <input type="submit" class="btn btn-warning" value="Buy Now">
+                      </form>
+
+                    </div>
                     <div class="seemore_bt"><a href="{{route('singleProduct',$items->id)}}">See More</a></div>
                   </div>
                 </div>
               </div>
               @endforeach
-     
+
             </div>
           </div>
         </div>
       </div>
-  
+
     </div>
   </div>
 </div>

@@ -3,6 +3,6 @@
 @section('userProfile')
 
 
-<h4>User </h4>
+<h4>Pending Order</h4>
 
 @endsection

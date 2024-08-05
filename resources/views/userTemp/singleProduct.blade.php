@@ -29,15 +29,15 @@
                     </div>
                   </div>
                 </div>
-              
+
                 <div class="col-lg-8 col-sm-4">
                   <div class="box_main">
                     <h4 class="shirt_text txl">{{ $product->product_name }}</h4>
 
                     <a href="{{ route('categoryPage', [$product->product_category_id,$product->slug]) }}">
-                      <i class="bi bi-folder2-open"></i> 
+                      <i class="bi bi-folder2-open"></i>
 
-                      @foreach($category as $items) 
+                      @foreach($category as $items)
                       @if($product->product_category_id === $items->id)
                       {{$items->category_name}}@endif @endforeach
                     </a> <span>&#8596;</span>
@@ -56,7 +56,18 @@
                     </p>
 
                     <div class="btn_main mt-4">
-                      <div class="btn btn-warning"><a href="#">Add to Card</a></div>
+                      
+                      <form action="{{ route('addProductToCart', $product->id) }}" method="post">
+                        @csrf
+                        <label for="quantity">How many products do you want?</label>
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="product_price" value="{{ $product->product_price }}">
+                        
+                        <input type="number" id="quantity" name="product_qty" min="1" step="1" class="form-control"
+                          required><br>
+                        <input type="submit" class="btn btn-warning" value="Add to Cart">
+                      </form>
+
                     </div>
                   </div>
                 </div>
@@ -86,8 +97,7 @@
                     <p class="price_text">Start Price <span style="color: #262626;">$ {{ $item->product_price }}</span>
                     </p>
                     <div class="electronic_img">
-                      <img src="{{ asset('products/' . $item->product_img) }}"
-                        alt="{{ $item->product_name }}">
+                      <img src="{{ asset('products/' . $item->product_img) }}" alt="{{ $item->product_name }}">
                     </div>
                     <div class="btn_main">
                       <div class="buy_bt"><a href="#">Buy Now</a></div>
