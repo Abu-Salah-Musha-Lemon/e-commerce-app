@@ -46,7 +46,6 @@
                       <i class="bi bi-folder2-open"></i>
                     </a>
 
-
                     <p class="text txl">{{ $product->product_des }}</p>
                     <p class="price_text txl">
                       Stock : <span style="color: #262626;">{{ $product->product_quantity }}</span>
@@ -60,11 +59,8 @@
                       <form action="{{ route('addProductToCart', $product->id) }}" method="post">
                         @csrf
                         <label for="quantity">How many products do you want?</label>
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <input type="hidden" name="product_price" value="{{ $product->product_price }}">
-                        
-                        <input type="number" id="quantity" name="product_qty" min="1" step="1" class="form-control"
-                          required><br>
+                        <input type="number" id="quantity" name="product_quantity" min="1" step="1" class="form-control"
+                        value="1"> <br>
                         <input type="submit" class="btn btn-warning" value="Add to Cart">
                       </form>
 

@@ -16,31 +16,34 @@
 
               <div class="col-lg-12 col-sm-4">
                 <div class="box_main">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Product Name</th>
-                      <th scope="col">Product qty</th>
-                      <th scope="col">Product Price</th>
-                      <th scope="col">Product action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @php $sr =1;@endphp
-                    @foreach( $items as $item)
-                    <tr>
-                      <th scope="row">{{$sr++}}</th>
-                      <td>{{$item->product_quantity}}</td>
-                     
-                      <td>{{$item->product_quantity}}</td>
-                      <td>{{$item->product_price}}</td>
-                      <td><a href="#" class="btn btn-warning">remove</a></td>
-                      
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product qty</th>
+                        <th scope="col">Product Price</th>
+                        <th scope="col">Product action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @php $sr = 1; @endphp
+                      @foreach($items as $item )
+                      <tr>
+                        <th scope="row">{{ $sr++ }}</th>
+                        @php
+                        // Find the product associated with the current item
+                        $product = $product_name->firstWhere('id', $item->product_id);
+                        @endphp
+                        <td>{{ $product ? $product->product_name : 'N/A' }}</td>
+                        <td>{{ $item->product_quantity }}</td>
+                        <td>{{ $item->product_price }}</td>
+                        <td><a href="{{route('deleteProductToCart',$item->id)}}" class="btn btn-warning">Remove</a></td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+
+                  </table>
                 </div>
               </div>
             </div>

@@ -17,10 +17,8 @@ return new class extends Migration
             $table->text('product_short_des');
             $table->text('product_des');
             $table->decimal('product_price', 10, 2);
-            $table->foreignId('product_category_id')->constrained()->onDelete('cascade');
-            $table->string('product_category_name');
-            $table->foreignId('product_subcategory_id')->nullable()->constrained()->onDelete('set null');
-            $table->string('product_subcategory_name');
+            $table->integer('product_category_id');
+            $table->integer('product_subcategory_id');
             $table->integer('product_quantity');
             $table->string('product_img')->nullable();
             $table->string('slug')->nullable();
