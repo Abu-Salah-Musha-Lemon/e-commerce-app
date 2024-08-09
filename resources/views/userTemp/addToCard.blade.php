@@ -27,7 +27,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @php $sr = 1; @endphp
+                      @php $sr = 1; $total = 0; @endphp
                       @foreach($items as $item )
                       <tr>
                         <th scope="row">{{ $sr++ }}</th>
@@ -40,9 +40,16 @@
                         <td>{{ $item->product_price }}</td>
                         <td><a href="{{route('deleteProductToCart',$item->id)}}" class="btn btn-warning">Remove</a></td>
                       </tr>
+                      @php $total += $item->product_price; @endphp
                       @endforeach
                     </tbody>
-
+                      @if($total > 0)
+                        <tr>
+                          <td>Total Price</td>
+                          <td>{{$total}}</td>
+                          <td><a href="" class="btn btn-primary">check Out</a></td>
+                        </tr>
+                      @endif
                   </table>
                 </div>
               </div>

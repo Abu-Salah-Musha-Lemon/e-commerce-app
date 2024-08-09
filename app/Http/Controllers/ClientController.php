@@ -7,6 +7,7 @@ use App\Models\category;
 use App\Models\subcategory;
 use App\Models\product;
 use App\Models\Card;
+use App\Models\ShoppingAddress;
 use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
@@ -79,6 +80,17 @@ class ClientController extends Controller
             'message' => 'Product added to cart successfully!',
             'alert-type' => 'success'
         ]);
+    }
+
+    public function shoppingAddress(Request $request){
+        // $request->validate([
+        //     'phoneNumber' => 'required|string|max:15',
+        //     'presentAddress' => 'required|string|max:255',
+        //     'postalCode' => 'required|string|max:10',
+        // ]);
+    
+        // ShoppingAddress::create($request->all());
+        return view('userTemp.shoppingAddress');
     }
     public function checkout(){
         return view('userTemp.checkOut');
