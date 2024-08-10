@@ -24,7 +24,16 @@
                       
                       <li><a href="{{route('userProfile')}}">Dashboard</a></li>
                       <li><a href="{{route('pendingOrder')}}">Pending Order</a></li>
-                      <li><a href="{{route('userHistory')}}">History</a></li>
+                      <li>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+                      <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                        <span>Log Out</span>
+                      </a>
+                    </form>
+
                     </ul>
                   </div>
                 </div>

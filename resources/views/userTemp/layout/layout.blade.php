@@ -14,6 +14,7 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- bootstrap css -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="{{asset('userTemp/css/bootstrap.min.css')}}">
       <!-- style css -->
       <link rel="stylesheet" type="text/css" href="{{asset('userTemp/css/style.css')}}">
@@ -227,9 +228,13 @@
       <script src="{{asset('userTemp/js/bootstrap.bundle.min.js')}}"></script>
       <script src="{{asset('userTemp/js/jquery-3.0.0.min.js')}}"></script>
       <script src="{{asset('userTemp/js/plugin.js')}}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+
       <!-- sidebar -->
       <script src="{{asset('userTemp/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
       <script src="{{asset('userTemp/js/custom.js')}}"></script>
+
       <script>
          function openNav() {
            document.getElementById("mySidenav").style.width = "250px";

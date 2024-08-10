@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\SubcategoryController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClientController;
@@ -48,6 +49,8 @@ Route::middleware('auth','role:user')->group(function () {
         Route::get('/shopping-address', 'shoppingAddress')->name('shoppingAddress');
         Route::get('/user-profile/history', 'userHistory')->name('userHistory');
         Route::get('/checkout', 'checkout')->name('checkout');
+        Route::get('/orders', 'orderStore')->name('orders');
+        Route::get('/orders', 'orderCancel')->name('orderCancel');
         Route::get('/todays-deal', 'todaysDeal')->name('todaysDeal');
         Route::get('/customer-service', 'customerService')->name('customerService');
     });
@@ -90,6 +93,8 @@ Route::middleware('auth','role:admin')->group(function(){
     Route::controller(OrderController::class)->group(function(){
         Route::get('admin/order', 'index')->name('order');
         Route::get('admin/order/create', 'create');
+        Route::get('admin/approve-order/{id}', 'approveOrder')->name('approveOrder');
+        Route::get('admin/completed-order', 'completeOrder')->name('completeOrder');
         // Route::get('admin/order', 'store');
         // Route::get('admin/order', 'update');
         // Route::get('admin/order', 'view');

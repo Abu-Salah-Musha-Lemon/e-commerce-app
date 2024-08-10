@@ -7,7 +7,8 @@ use App\Models\category;
 use App\Models\subcategory;
 use App\Models\product;
 use App\Models\Card;
-use App\Models\ShoppingAddress;
+use App\Models\order;
+use App\Models\shopping_addresses;
 use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
@@ -83,25 +84,94 @@ class ClientController extends Controller
     }
 
     public function shoppingAddress(Request $request){
-        // $request->validate([
-        //     'phoneNumber' => 'required|string|max:15',
-        //     'presentAddress' => 'required|string|max:255',
-        //     'postalCode' => 'required|string|max:10',
-        // ]);
-    
-        // ShoppingAddress::create($request->all());
-        return view('userTemp.shoppingAddress');
+        $request->validate([
+            'phoneNumber' => 'required|string|max:15',
+            'presentAddress' => 'required|string|max:255',
+            'postalCode' => 'required|string|max:10',
+        ]);
+
+    shopping_addresses::create([
+            'phoneNumber'=>$request->phoneNumber,
+            'presentAddress'=>$request->presentAddress,
+            'postalCode'=>$request->postalCode,
+            'userId'=>Auth::id(),
+        ]);
+
+        return redirect()->route('checkout')->with([
+            'message' => 'user Address add  successfully!',
+            'alert-type' => 'success'
+        ]);
     }
     public function checkout(){
-        return view('userTemp.checkOut');
+        $user_id=Auth::id();
+        $shippingAddress=shopping_addresses::where('userId',$user_id)->get();
+        $card=Card::where('user_id',$user_id)->get();
+        $product=Card::where('user_id',$user_id)->get();
+        return view('userTemp.checkOut',compact('shippingAddress','product'));
     }
+
+
+    public function orderStore()
+    {
+        $user_id=Auth::id();
+        $shippingAddress=shopping_addresses::where('userId',$user_id)->first();
+        $product=Card::where('user_id',$user_id)->get();
+
+        foreach ($product as $item) {
+            // echo "<pre>";
+            // print_r($item);
+            // echo "</pre>";
+            // exit;
+           Order::create([
+            'userId'=>$user_id,
+            'ProductId'=>$item->id,
+            'ProductPrice'=>$item->product_price,
+            'ProductQty'=>$item->product_qty,
+            'userPhone'=>$shippingAddress->phoneNumber,
+            'userPresentAddress'=>$shippingAddress->presentAddress,
+            'userPostalCode'=>$shippingAddress->postalCode,
+            'Status'=>'pending',
+            ]); 
+            $items = $item->id;
+            Card::findOrFail($items)->delete();
+        }
+        return redirect()->route('pendingOrder')->with([
+            'message' => 'Order submit  successfully!',
+            'alert-type' => 'success'
+        ]);
+
+    }
+    public function cancelOrder()
+    {
+        $user_id=Auth::id();
+        $shippingAddress=shopping_addresses::where('userId',$user_id)->first();
+        $product=Card::where('user_id',$user_id)->get();
+
+        foreach ($product as $item) {
+            $items = $item->id;
+            Card::findOrFail($items)->delete();
+        }
+        return redirect()->route('pendingOrder')->with([
+            'message' => 'Order cancel  successfully!',
+            'alert-type' => 'success'
+        ]);
+
+    }
+
+
 
     public function userProfile(){
         return view('userTemp.userProfile');
     }
     public function pendingOrder(){
-        return view('userTemp.pendingOrder');
+        $userId = Auth::id();
+        $orderItems=Order::where('userId',$userId)->get();
+        return view('userTemp.pendingOrder' ,compact('orderItems'));
     }
+
+
+
+
     public function userHistory(){
         return view('userTemp.userHistory');
     }

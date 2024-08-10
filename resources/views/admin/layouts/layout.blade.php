@@ -145,7 +145,7 @@
               </li>
 
               <li class="menu-item">
-                <a href="{{route('order')}}" class="menu-link">
+                <a href="{{route('completeOrder')}}" class="menu-link">
                   <div class="text-truncate" data-i18n="Without navbar">Completed Orders</div>
                 </a>
               </li>
