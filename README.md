@@ -103,9 +103,9 @@ class User extends Authenticatable implements LaratrustUser
 }
 
 
-php artisan key:generate
-php artisan config:cach
-php.ini/extension=zip
-npm install
+php artisan key:generate<br>
+php artisan config:cach<br>
+php.ini/extension=zip<br>
+npm install<br>
 npm run dev
 
