@@ -64,3 +64,48 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## laratrustUser config;
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\HasRolesAndPermissions;
+
+use Laratrust\Contracts\LaratrustUser;
+
+class User extends Authenticatable implements LaratrustUser 
+{
+    use HasFactory, Notifiable, HasRolesAndPermissions;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+   
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+   
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+}
+
+
+php artisan key:generate
+php artisan config:cach
+php.ini/extension=zip
+npm install
+npm run dev
+
