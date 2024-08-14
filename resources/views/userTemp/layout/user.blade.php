@@ -12,7 +12,7 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="container">
-          <h1 class="fashion_taital"> USER </h1>
+          <h1 class="fashion_taital"> Welcome -  @php echo Auth::user()->name; @endphp </h1>
           <div class="fashion_section_2">
 
             <div class="row">
