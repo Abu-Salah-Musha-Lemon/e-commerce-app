@@ -19,7 +19,7 @@ class ClientController extends Controller
         return view('userTemp.categoryPage',compact('category','product'));
     }
 
-     public function singleProduct($id) {
+    public function singleProduct($id) {
         try {
             // Fetch the specific product by ID
             $product = Product::findOrFail($id);
@@ -97,7 +97,7 @@ class ClientController extends Controller
             'userId'=>Auth::id(),
         ]);
 
-        return redirect()->route('checkout')->with([
+        return redirect()->route('checkOut')->with([
             'message' => 'user Address add  successfully!',
             'alert-type' => 'success'
         ]);
@@ -106,8 +106,8 @@ class ClientController extends Controller
         $user_id=Auth::id();
         $shippingAddress=shopping_addresses::where('userId',$user_id)->get();
         $card=Card::where('user_id',$user_id)->get();
-        $product=Card::where('user_id',$user_id)->get();
-        return view('userTemp.checkOut',compact('shippingAddress','product'));
+        $products=Card::where('user_id',$user_id)->get();
+        return view('userTemp.checkOut',compact('shippingAddress','products'));
     }
 
 
@@ -160,9 +160,13 @@ class ClientController extends Controller
 
 
 
-    public function userProfile(){
-        return view('userTemp.userProfile');
+    public function userProfile()
+    {
+        // Return the user profile view
+        return view('userTemp.userProfile', ['user' => Auth::user()]);
     }
+
+    
     public function pendingOrder(){
         $userId = Auth::id();
         $orderItems=Order::where('userId',$userId)->get();

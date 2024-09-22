@@ -125,25 +125,35 @@
                <div class="header_box">
                   <div class="login_menu">
                      <ul>
-                        <li><a href="#">
-                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                              <span class="padding_10">Cart</span></a>
-                        </li>
-                       
                         @if (Route::has('login'))
                         @auth
-                        @php
+                         @php
                         // Retrieve the authenticated user's role
-
-                        $user = Auth::user()->id;
-                        $roleUser = DB::table('role_user')->get('user_id');
-                        $roleDec = DB::table('roles')->get('id');
-                  
+                        $user = Auth::user();
+                        $roleId = DB::table('role_user')->where('user_id', $user->id)->value('role_id');
+                        $cardProductCount = DB::table('cards')->sum('product_qty');
+                       
                         @endphp
-                        @if ($user === $roleUser&& $roleDec ==1)
-                        <li><a href="{{ route('adminDashboard') }}" class="text-white">Admin Dashboard</a></li>
-                        @else
-                        <li><a href="{{ route('userProfile') }}" class="text-white"> <i class="fa fa-user" aria-hidden="true"></i> @php echo Auth::user()->name; @endphp</a></li>
+                        <li>
+                           <a href="{{route('addToCart')}}">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                              <span class="padding_10 position-relative">Cart 
+                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                                    {{$cardProductCount}} </span>
+                              </span>
+                           </a>
+                        </li>
+
+                       
+
+                        @if ($roleId == 1)
+                        <li><a href="{{ route('adminDashboard') }}" class="text-white">{{ $user->name }}</a></li>
+                        @elseif ($roleId == 2)
+                        <li>
+                           <a href="{{ route('userProfile') }}" class="text-white">
+                              <i class="fa fa-user" aria-hidden="true"></i> {{ $user->name }}
+                           </a>
+                        </li>
                         @endif
                         @else
                         <li><a href="{{ route('login') }}" class="text-white">Log in</a></li>
@@ -153,10 +163,10 @@
                         @endif
                         @endauth
                         @endif
-                       
                      </ul>
                   </div>
                </div>
+
             </div>
          </div>
       </div>
@@ -214,7 +224,8 @@
    <!-- footer section start -->
    <div class="footer_section layout_padding">
       <div class="container">
-         <div class="footer_logo"><a href="{{route('home')}}"><img src="{{asset('userTemp/images/footer-logo.png')}}"></a>
+         <div class="footer_logo"><a href="{{route('home')}}"><img
+                  src="{{asset('userTemp/images/footer-logo.png')}}"></a>
          </div>
          <div class="footer_menu">
             <ul>
@@ -231,7 +242,8 @@
    <!-- copyright section start -->
    <div class="copyright_section">
       <div class="container">
-         <p class="copyright_text">© @php echo date('Y')@endphp All Rights Reserved. Develope by <a href="#">Abu Salah Musha Lemon</a></p>
+         <p class="copyright_text">© @php echo date('Y')@endphp All Rights Reserved. Develope by <a href="#">Abu Salah
+               Musha Lemon</a></p>
       </div>
    </div>
    <!-- copyright section end -->

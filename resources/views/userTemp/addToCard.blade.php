@@ -35,7 +35,7 @@
                         $product = $product_name->firstWhere('id', $item->product_id);
                         @endphp
                         <td>{{ $product ? $product->product_name : 'N/A' }}</td>
-                        <td>{{ $item->product_quantity }}</td>
+                        <td>{{ $item->product_qty }}</td>
                         <td>{{ $item->product_price }}</td>
                         <td><a href="{{ route('deleteProductToCart', $item->id) }}" class="btn btn-warning">Remove</a></td>
                       </tr>

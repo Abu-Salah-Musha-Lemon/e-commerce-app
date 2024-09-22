@@ -10,45 +10,10 @@ class HomeController extends Controller
 {
     
     public function index()
-    { 
-        // $category = Category::where($id)->FindOrFild()->get();
-        $product=Product::latest()->get();
-        return view('userTemp.home',compact('product'));
-    }
-
-    
-    public function create()
     {
-        //
+        // Fetch the latest products and paginate them
+        $products = Product::latest()->paginate(10); // This fetches 20 latest products per page
+        return view('userTemp.home', compact('products')); // Pass the paginated products to the view
     }
-
     
-    public function store(Request $request)
-    {
-        //
-    }
-
-    
-    public function show(string $id)
-    {
-        //
-    }
-
-    
-    public function edit(string $id)
-    {
-        //
-    }
-
-    
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    
-    public function destroy(string $id)
-    {
-        //
-    }
 }

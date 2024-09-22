@@ -23,12 +23,13 @@
                     <ul>
                       
                       <li><a href="{{route('userProfile')}}">Dashboard</a></li>
+                      <li> <a href="{{route('addToCart')}}">Product add </a></li>
                       <li><a href="{{route('pendingOrder')}}">Pending Order</a></li>
                       <li>
 
                         <form method="POST" action="{{ route('logout') }}">
                       @csrf
-                      <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                      <a href="{{ route('logout') }}" onclick="event.preventDefault();
                            this.closest('form').submit();">
                         <span>Log Out</span>
                       </a>

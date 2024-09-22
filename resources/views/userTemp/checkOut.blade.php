@@ -34,7 +34,7 @@
                     $product_names = App\Models\Product::pluck('product_name', 'id'); // Get product names keyed by their IDs
                 @endphp
 
-                @foreach($orderItems as $product)
+                @foreach($products as $product)
                     <tr>
                         <td>{{ $s++ }}</td>
                         <td>{{ $product_names[$product->product_id] ?? 'Unknown' }}</td> <!-- Get product name by product_id -->
@@ -48,13 +48,15 @@
         </div>
       </div>
       <div class="col-lg-6 d-flex justify-content-between align-item-center my-2">
-      <form action="" method="get">
-        <button type="{{route('orderCancel')}}" class="btn btn-outline-danger shadow-none">Cancel Order</button>
-      </form>
-      <form action="{{route('orders')}}" method="get">
-        <button type="submit" class="btn btn-outline-success shadow-none">Place Order</button>
-      </form>
-    </div>
+          <form action="{{ route('orderCancel') }}" method="get"> <!-- Use the correct route name -->
+              <button type="submit" class="btn btn-outline-danger shadow-none">Cancel Order</button>
+          </form>
+          
+          <form action="{{ route('orders') }}" method="get">
+              <button type="submit" class="btn btn-outline-success shadow-none">Place Order</button>
+          </form>
+      </div>
+
     </div>
 
   </div>

@@ -14,9 +14,9 @@ use App\Http\Controllers\ClientController;
 //     return view('userTemp.layout');
 // });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified','role:admin'])->name('dashboard');
 
 
 Route::controller(HomeController::class)->group(function(){
@@ -39,22 +39,23 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::middleware('auth','role:user')->group(function () {
-    Route::controller(ClientController::class)->group(function(){
+Route::middleware('auth', 'role:user')->group(function () {
+    Route::controller(ClientController::class)->group(function () {
+        Route::get('/user-profile', 'userProfile')->name('userProfile');
         Route::get('/add-to-cart', 'addToCart')->name('addToCart');
         Route::post('/add-product-to-cart/{id}', 'addProductToCart')->name('addProductToCart');
         Route::get('/delete-product-to-cart/{id}', 'deleteProductToCart')->name('deleteProductToCart');
-        Route::get('/user-profile', 'userProfile')->name('userProfile');
         Route::get('/user-profile/pending-order', 'pendingOrder')->name('pendingOrder');
         Route::get('/shopping-address', 'shoppingAddress')->name('shoppingAddress');
         Route::get('/user-profile/history', 'userHistory')->name('userHistory');
         Route::get('/checkout', 'checkout')->name('checkout');
-        Route::get('/orders', 'orderStore')->name('orders');
-        Route::get('/orders', 'orderCancel')->name('orderCancel');
+        Route::get('/orders', 'orderStore')->name('orders'); // Define the orderStore route once
+        Route::get('/orders/cancel', 'orderCancel')->name('orderCancel'); // Change to a different URI for cancellation
         Route::get('/todays-deal', 'todaysDeal')->name('todaysDeal');
         Route::get('/customer-service', 'customerService')->name('customerService');
     });
 });
+
 
 
 Route::middleware('auth','role:admin')->group(function(){
