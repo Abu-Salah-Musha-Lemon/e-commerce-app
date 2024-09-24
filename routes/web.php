@@ -14,9 +14,9 @@ use App\Http\Controllers\ClientController;
 //     return view('userTemp.layout');
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified','role:admin'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified','role:admin'])->name('dashboard');
 
 
 Route::controller(HomeController::class)->group(function(){

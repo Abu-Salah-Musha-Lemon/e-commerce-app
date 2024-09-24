@@ -107,5 +107,16 @@ php artisan key:generate<br>
 php artisan config:cach<br>
 php.ini/extension=zip<br>
 npm install<br>
-npm run dev
+npm run dev <br>
+
+#### pagination system :
+#### if you need the pagination system please go ->Providers/AppServiceProvider and 
+     
+     use Illuminate\Pagination\Paginator;
+     
+     public function boot(): void
+    {
+        Paginator::useBootstrap();
+    }
+    past the code 
 

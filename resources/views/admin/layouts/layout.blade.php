@@ -38,15 +38,13 @@
   <link rel="stylesheet" href="{{asset('customcssjs/bootstrap-icons.min.css')}}" />
 
   <!-- Page CSS -->
-  <!-- data Table CSS -->
-  <!-- <link rel="stylesheet" href="{{asset('dataTable/datatable.responsive.bootstrap5.css')}}" />
-<link rel="stylesheet" href="{{asset('dataTable/datatables-checkboxes-jquery.css')}}" />
-<link rel="stylesheet" href="{{asset('dataTable/datatables.bootstrap5.css')}}" />
-<link rel="stylesheet" href="{{asset('dataTable/datatables.buttons.css')}}" /> -->
+	<!-- Data Table CSS local server -->
+	<link rel="stylesheet" href="{{asset('dataTable/dataTables.bootstrap5.min.css')}}">
+	<link rel="stylesheet" href="{{asset('dataTable/buttons.dataTables.min.css')}}">
+	<link rel="stylesheet" href="{{asset('dataTable/searchBuilder.dataTables.min.css')}}">
+	<link rel="stylesheet" href="{{asset('dataTable/dataTables.dateTime.min.css')}}">
   <!-- Helpers -->
   <script src="{{asset('dashboards/assets/vendor/js/helpers.js')}}"></script>
-  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="{{asset('dashboards/assets/js/config.js')}}"></script>
 </head>
 
@@ -58,8 +56,7 @@
 
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
         <div class="app-brand demo">
-          <a href="index.html" class="app-brand-link">
-
+          <a href="{{route('adminDashboard')}}" class="app-brand-link">
             <span class="app-brand-text demo menu-text fw-bold ms-2">Single E-Com</span>
           </a>
           <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
@@ -70,11 +67,12 @@
         <div class="menu-inner-shadow"></div>
 
         <ul class="menu-inner py-1">
-          <!-- dashboardss -->
+          <!-- dashboards -->
+        
           <li class="menu-item {{ request()->is('adminDashboard') ? 'active' : '' }}">
-            <a href="{{route('adminDashboard')}} "
-              class="menu-link menu-toggle {{ request()->is('dashboard') ? 'active' : '' }}">
-              <i class="menu-icon tf-icons bx bx-home-smile"></i>Dashboard
+            <a href="{{route('adminDashboard')}}" class="menu-link {{ request()->is('dashboard') ? 'active' : '' }}">
+              <i class="menu-icon tf-icons bx bx-home-smile"></i>
+              <div class="text-truncate" data-i18n=" menu">Dashboard</div>
             </a>
           </li>
 
@@ -106,6 +104,7 @@
           <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Products</span>
           </li>
+
           <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -118,11 +117,13 @@
                   <div class="text-truncate" data-i18n="Without menu">Add Products</div>
                 </a>
               </li>
+
               <li class="menu-item">
                 <a href="{{route('product')}}" class="menu-link">
                   <div class="text-truncate" data-i18n="Without navbar">All Products</div>
                 </a>
               </li>
+
             </ul>
           </li>
 
@@ -130,6 +131,7 @@
           <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Order</span>
           </li>
+
           <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -187,14 +189,7 @@
             </div>
             <!-- /Search -->
 
-            <ul class="navbar-nav flex-row align-items-center ms-auto">
-              <!-- Place this tag where you want the button to render. -->
-              <li class="nav-item lh-1 me-4">
-                <a class="github-button" href="https://github.com/themeselection/sneat-html-admin-template-free"
-                  data-icon="octicon-star" data-size="large" data-show-count="true"
-                  aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
-              </li>
-
+            <ul class="navbar-nav flex-row align-items-center ms-auto border-rounded">
               <!-- User -->
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -212,7 +207,7 @@
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <h6 class="mb-0">John Doe</h6>
+                          <h6 class="mb-0">{{Auth::user()->name}}</h6>
                           <small class="text-muted">Admin</small>
                         </div>
                       </div>
@@ -229,15 +224,6 @@
                   <li>
                     <a class="dropdown-item" href="{{route('profile.edit')}}"> <i
                         class="bx bx-cog bx-md me-3"></i><span>Settings</span> </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <span class="d-flex align-items-center align-middle">
-                        <i class="flex-shrink-0 bx bx-credit-card bx-md me-3"></i><span
-                          class="flex-grow-1 align-middle">Billing Plan</span>
-                        <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>
-                      </span>
-                    </a>
                   </li>
                   <li>
                     <div class="dropdown-divider my-1"></div>
@@ -281,17 +267,7 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link">ThemeSelection</a>
-                </div>
-                <div class="d-none d-lg-inline-block">
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank" class="footer-link me-4">Documentation</a>
-
-                  <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                    class="footer-link">Support</a>
+                  <a href="https://themeselection.com" target="_blank" class="footer-link">Abu Salah Musha Lemon</a>
                 </div>
               </div>
             </div>
@@ -374,7 +350,102 @@
       }
 
     </script>
-    @yield('script')
+    	<!-- DataTables -->
+      <script src="{{asset('dataTable/jquery.dataTables.min.js')}}"></script>
+      <script src="{{asset('dataTable/dataTables.buttons.min.js')}}"></script>
+      <script src="{{asset('dataTable/dataTables.searchBuilder.min.js')}}"></script>
+      <script src="{{asset('dataTable/dataTables.dateTime.min.js')}}"></script>
+      <script src="{{asset('dataTable/jszip.min.js')}}"></script>
+      <script src="{{asset('dataTable/pdfmake.min.js')}}"></script>
+      <!-- <script src="{{asset('dataTable/vfs_fonts.js')}}"></script> -->
+      <script src="{{asset('dataTable/buttons.html5.min.js')}}"></script>
+      <script src="{{asset('dataTable/buttons.print.min.js')}}"></script>
+      <script src="{{asset('dataTable/pdfmake.1.36.min.js')}}"></script>
+
+      @yield('script')
+    	<script>
+        // Initialize DataTable with embedded fonts in PDF
+        function initializeDataTable(columnNames) {
+          var table;
+
+          if ($.fn.dataTable.isDataTable('#dataTable')) {
+            table = $('#dataTable').DataTable();
+          } else {
+            table = $('#dataTable').DataTable({
+              paging: false,
+              responsive: true,
+              dom: 'Bfrtip',
+              buttons: [
+                {
+                  extend: 'print',
+                  text: 'Print',
+                  customize: function (win) {
+                    $(win.document.body).find('h1').text('Stock Genie');
+                    $(win.document.body).prepend('<img src="./images/logo/StockGenie.png" style="width:80px;height:80px;display:block;margin:auto;"/>');
+                    $(win.document.body).append('<a href="http://www.StockGenie.com" style="color:#007bff;">Visit our website: Stock Genie</a>');
+                  },
+                  exportOptions: {
+                    columns: function (idx, data, node) {
+                      return columnNames.includes($(node).text().trim());
+                    }
+                  }
+                },
+                {
+                  extend: 'excelHtml5',
+                  text: 'Excel',
+                  exportOptions: {
+                    columns: function (idx, data, node) {
+                      return columnNames.includes($(node).text().trim());
+                    }
+                  }
+                },
+                {
+                  extend: 'pdfHtml5',
+                  text: 'PDF',
+                  exportOptions: {
+                    columns: function (idx, data, node) {
+                      return columnNames.includes($(node).text().trim());
+                    }
+                  },
+                  customize: function (doc) {
+                    doc.content.splice(0, 0, {
+                      text: 'Stock Genie',
+                      fontSize: 20,
+                      bold: true,
+                      margin: [0, 0, 0, 12]
+                    });
+                    // Optionally include logo image if needed
+                    // doc.content.splice(1, 0, {
+                    //     image: 'StockGenie.png',
+                    //     width: 50,
+                    //     alignment: 'center',
+                    //     margin: [0, 0, 0, 12]
+                    // });
+                    doc.content.push({
+                      text: 'Visit our website: Stock Genie',
+                      link: 'http://www.StockGenie.com',
+                      color: '#007bff'
+                    });
+
+                    // Embed fonts directly into the PDF document
+                    doc.defaultStyle.font = 'Roboto';
+                    doc.styles = {
+                      Roboto: {
+                        normal: 'Roboto-Regular.ttf',
+                        bold: 'Roboto-Bold.ttf',
+                        italics: 'Roboto-Italic.ttf',
+                        bolditalics: 'Roboto-BoldItalic.ttf'
+                      }
+                    };
+                  }
+                }
+              ]
+            });
+          }
+        }
+	  </script>
+
+
 </body>
 
 </html>
