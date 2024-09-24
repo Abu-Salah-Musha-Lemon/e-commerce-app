@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index()
     {
         // Fetch the latest products and paginate them
-        $products = Product::latest()->paginate(10); // This fetches 20 latest products per page
+        $products = Product::latest()->paginate(9); // This fetches 20 latest products per page
         return view('userTemp.home', compact('products')); // Pass the paginated products to the view
     }
     

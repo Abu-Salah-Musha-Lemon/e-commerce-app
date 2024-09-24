@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     public function index()
-    {    $categories = Category::latest()->get();
+    {
+        $categories = Category::latest()->get();
         $subcategories = Subcategory::latest()->get();
-        $products = Product::latest()->get(); // Assuming you have a Product model
-    
+        $products = Product::latest()->paginate(9);
+     
         return view('admin.product.allProduct', compact('categories', 'subcategories', 'products'));
     }
+    
 
     public function create()
     {
