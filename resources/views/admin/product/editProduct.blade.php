@@ -11,7 +11,7 @@
 				<small class="text-body float-end">Edit Product</small>
 			</div>
 			<div class="card-body">
-				<form action="{{ route('product.update', $product->id) }}" method="get" enctype="multipart/form-data">
+				<form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
 					@csrf
 					@method('GET')
 
@@ -28,24 +28,17 @@
 									<img id="image" src="{{ $product->product_img ? asset('products/' . $product->product_img) : '' }}"
 										style="width: 190px; height: 190px; border-radius: 16px; border: 1px solid rgba(0, 0, 0, 0.1);">
 
-									<div class="fileUpload btn btn-success"
+									<div class="fileUpload"
 										style="margin-top: 10px; position: relative; display: inline-block;">
-										<span id="uploadButton" style="cursor: pointer;">
-											<i class="ion-upload m-r-5"></i> Upload
-										</span>
-										<input type="file" name="product_img" id="product_img" accept="image/*" class="upload"
-											style="display: none;" />
+										<input type="file" name="product_img" id="image" accept="image/*" class="upload" style="width:100px;"  onchange="readURL(this);"
+											 />
 									</div>
 
 									<span class='text-danger'>@error('product_img'){{ $message }}@enderror</span>
 								</div>
 							</div>
 
-							<script>
-								document.getElementById('uploadButton').addEventListener('click', function () {
-									document.getElementById('product_img').click();
-								});
-							</script>
+						
 						</div>
 
 						<div class="col-md-4">

@@ -42,6 +42,7 @@
 									<div class="input-group-prepend">
 										<span>Product Photo</span>
 									</div>
+									
 									<img id="image" src=""
 										style="width: 190px; height: 190px; border-radius: 16px; border: 1px solid rgba(0, 0, 0, 0.1);">
 

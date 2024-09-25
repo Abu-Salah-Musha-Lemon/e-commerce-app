@@ -48,7 +48,15 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
       media="screen">
 </head>
-
+@if (Route::has('login'))
+   @auth
+      @php
+   // Retrieve the authenticated user's role
+   $user = Auth::user();
+   $roleId = DB::table('role_user')->where('user_id', $user->id)->value('role_id');
+   $cardProductCount = DB::table('cards')->sum('product_qty');
+   
+   @endphp
 <body>
    <!-- banner bg main start -->
    <div class="banner_bg_main">
@@ -61,7 +69,9 @@
                      <ul>
                         <li><a href="{{ route('home') }}">Gift Ideas</a></li>
                         <li><a href="{{ route('newRelease') }}">New Releases</a></li>
+                        @if ($roleId == 2)
                         <li><a href="{{ route('todaysDeal') }}">Today's Deals</a></li>
+                        @endif
                      </ul>
                   </div>
                </div>
@@ -76,7 +86,7 @@
          <div class="container">
             <div class="row">
                <div class="col-sm-12">
-                  <div class="logo"><a href="index.html"><img src="{{asset('userTemp/images/logo.png')}}"></a></div>
+                  <div class="logo"><a href="{{route('home')}}"><img src="{{asset('userTemp/images/logo.png')}}"></a></div>
                </div>
             </div>
          </div>
@@ -125,15 +135,7 @@
                <div class="header_box">
                   <div class="login_menu">
                      <ul>
-                        @if (Route::has('login'))
-                        @auth
-                         @php
-                        // Retrieve the authenticated user's role
-                        $user = Auth::user();
-                        $roleId = DB::table('role_user')->where('user_id', $user->id)->value('role_id');
-                        $cardProductCount = DB::table('cards')->sum('product_qty');
-                       
-                        @endphp
+                     @if ($roleId == 2)
                         <li>
                            <a href="{{route('addToCart')}}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -144,10 +146,10 @@
                            </a>
                         </li>
 
-                       
+                       @endif
 
                         @if ($roleId == 1)
-                        <li><a href="{{ route('adminDashboard') }}" class="text-white">{{ $user->name }}</a></li>
+                        <li><a href="{{ route('adminDashboard') }}" class="text-white"><i class="fa fa-user" aria-hidden="true"></i> {{ $user->name }}</a></li>
                         @elseif ($roleId == 2)
                         <li>
                            <a href="{{ route('userProfile') }}" class="text-white">
@@ -180,7 +182,7 @@
                      <div class="row">
                         <div class="col-sm-12">
                            <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                           <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           <div class="buynow_bt"><a href="{{route('home')}}">Buy Now</a></div>
                         </div>
                      </div>
                   </div>
@@ -188,7 +190,7 @@
                      <div class="row">
                         <div class="col-sm-12">
                            <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                           <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           <div class="buynow_bt"><a href="{{route('home')}}">Buy Now</a></div>
                         </div>
                      </div>
                   </div>
@@ -196,7 +198,7 @@
                      <div class="row">
                         <div class="col-sm-12">
                            <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                           <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           <div class="buynow_bt"><a href="{{route('home')}}">Buy Now</a></div>
                         </div>
                      </div>
                   </div>

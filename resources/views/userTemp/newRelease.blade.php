@@ -5,16 +5,7 @@
   
 @php
 $date = date('Y-m-d');
-$product = DB::table('products')->get();
-
-foreach($product as $item)
-{
-  if($item->created_at==$date){
-    print_r($item->product_name);      
-  }
-  
-}
-      
+$product = DB::table('products')->get();   
 
 @endphp
 
@@ -28,32 +19,35 @@ foreach($product as $item)
           <h1 class="fashion_taital">New Releases</h1>
           <div class="fashion_section_2">
             <div class="row">
+            @if ($product->isNotEmpty())
+                @foreach ($product as $items) 
+                  @if(date('Y-m-d', strtotime($items->updated_at))==$date)
+                <div class="col-lg-4 col-sm-4">
+                  <div class="box_main">
+                    <h4 class="shirt_text">{{$items->product_name}}</h4>
+                    <p class="price_text">Start Price <span style="color: #262626;">$ {{$items->product_price}}</span></p>
+                    <div class="electronic_img"> <img src="{{ asset('products/' . $items->product_img) }}"
+                        alt="{{ $items->product_name }}"></div>
+                    <div class="btn_main">
+                      <div class="buy_bt">
 
-              @foreach ($product as $items)
-                 @if($item->created_at==$date)
-              <div class="col-lg-4 col-sm-4">
-                <div class="box_main">
-                  <h4 class="shirt_text">{{$items->product_name}}</h4>
-                  <p class="price_text">Start Price <span style="color: #262626;">$ {{$items->product_price}}</span></p>
-                  <div class="electronic_img"> <img src="{{ asset('products/' . $items->product_img) }}"
-                      alt="{{ $items->product_name }}"></div>
-                  <div class="btn_main">
-                    <div class="buy_bt">
+                        <form action="{{ route('addProductToCart', $items->id) }}" method="post">
+                          @csrf
+                          <input type="hidden" name="product_id" value="{{ $items->id }}">
+                          <input type="submit" class="btn btn-warning" value="Buy Now">
+                        </form>
 
-                      <form action="{{ route('addProductToCart', $items->id) }}" method="post">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $items->id }}">
-                        <input type="submit" class="btn btn-warning" value="Buy Now">
-                      </form>
-
+                      </div>
+                      <div class="seemore_bt"><a href="{{route('singleProduct',$items->id)}}">See More</a></div>
                     </div>
-                    <div class="seemore_bt"><a href="{{route('singleProduct',$items->id)}}">See More</a></div>
                   </div>
                 </div>
-              </div>
+                @else
+                <h3 class="text-center">No Products Available</h1>
+
+                @endif
+                @endforeach
               @endif
-              <h3 class="text-center">No Products Available</h1>
-              @endforeach
 
             </div>
           </div>

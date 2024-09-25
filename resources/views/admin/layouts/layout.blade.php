@@ -38,11 +38,11 @@
   <link rel="stylesheet" href="{{asset('customcssjs/bootstrap-icons.min.css')}}" />
 
   <!-- Page CSS -->
-	<!-- Data Table CSS local server -->
-	<link rel="stylesheet" href="{{asset('dataTable/dataTables.bootstrap5.min.css')}}">
-	<link rel="stylesheet" href="{{asset('dataTable/buttons.dataTables.min.css')}}">
-	<link rel="stylesheet" href="{{asset('dataTable/searchBuilder.dataTables.min.css')}}">
-	<link rel="stylesheet" href="{{asset('dataTable/dataTables.dateTime.min.css')}}">
+  <!-- Data Table CSS local server -->
+  <link rel="stylesheet" href="{{asset('dataTable/dataTables.bootstrap5.min.css')}}">
+  <link rel="stylesheet" href="{{asset('dataTable/buttons.dataTables.min.css')}}">
+  <link rel="stylesheet" href="{{asset('dataTable/searchBuilder.dataTables.min.css')}}">
+  <link rel="stylesheet" href="{{asset('dataTable/dataTables.dateTime.min.css')}}">
   <!-- Helpers -->
   <script src="{{asset('dashboards/assets/vendor/js/helpers.js')}}"></script>
   <script src="{{asset('dashboards/assets/js/config.js')}}"></script>
@@ -68,7 +68,7 @@
 
         <ul class="menu-inner py-1">
           <!-- dashboards -->
-        
+
           <li class="menu-item {{ request()->is('adminDashboard') ? 'active' : '' }}">
             <a href="{{route('adminDashboard')}}" class="menu-link {{ request()->is('dashboard') ? 'active' : '' }}">
               <i class="menu-icon tf-icons bx bx-home-smile"></i>
@@ -202,8 +202,8 @@
                     <a class="dropdown-item" href="#">
                       <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
-                          <div class="avatar avatar-online">
-                            <img src="#" alt class="w-px-40 h-auto rounded-circle" />
+                          <div class="avatar avatar-online"><i class="bx bx-user bx-md me-3"></i>
+                            <!-- <img src="#" alt class="w-px-40 h-auto rounded-circle" />  -->
                           </div>
                         </div>
                         <div class="flex-grow-1">
@@ -282,36 +282,37 @@
     </div>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-
-    <script src="{{asset('dashboards/assets/vendor/libs/jquery/jquery.js')}}"></script>
-    <script src="{{asset('dashboards/assets/vendor/libs/popper/popper.js')}}"></script>
-    <script src="{{asset('dashboards/assets/vendor/js/bootstrap.js')}}"></script>
-    <script src="{{asset('dashboards/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
-    <script src="{{asset('dashboards/assets/vendor/js/menu.js')}}"></script>
-
+    <script src="{{ asset('dashboards/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('dashboards/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('dashboards/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('dashboards/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('dashboards/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="{{asset('dashboards/assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
+    <script src="{{ asset('dashboards/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
     <!-- Main JS -->
-    <script src="{{asset('dashboards/assets/js/main.js')}}"></script>
-    <!-- data tables Js -->
-    <!-- <script src="{{asset('dataTable/datatables-bootstrap5.js')}}"></script>
-<script src="{{asset('dataTable/tables-datatables-basic.js')}}"></script> -->
+    <script src="{{ asset('dashboards/assets/js/main.js') }}"></script>
 
-    <!-- Page JS -->
-    <script src="{{asset('dashboards/assets/js/dashboardss-analytics.js')}}"></script>
+    <!-- DataTables JS -->
+    <script src="{{ asset('dataTable/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('dataTable/datatables-bootstrap5.js') }}"></script>
+    <script src="{{ asset('dataTable/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('dataTable/dataTables.searchBuilder.min.js') }}"></script>
+    <script src="{{ asset('dataTable/dataTables.dateTime.min.js') }}"></script>
+    <script src="{{ asset('dataTable/jszip.min.js') }}"></script>
+    <script src="{{ asset('dataTable/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('dataTable/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('dataTable/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('dataTable/pdfmake.1.36.min.js') }}"></script>
 
-    <!-- Place this tag before closing body tag for github widget button. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Custom JS -->
+    <!-- <script src="{{ asset('dataTable/jquery-3.7.1.min.js') }}"></script> -->
+    <script src="{{ asset('customcssjs/toster.min.js') }}"></script>
 
-    <!-- /* Image Preview */ -->
-    <script src="{{asset('dataTable/jquery-3.7.1.min.js')}}"></script>
-    <!-- /* Toastr Notifications */ -->
-    <script src="{{asset('customcssjs/toster.min.js')}}"></script>
+    <!-- Toastr Notifications -->
     <script>
-      /* Toastr Notifications */
       $(document).ready(function () {
         @if (Session:: has('message'))
       var type = "{{ Session::get('alert-type', 'info') }}";
@@ -326,15 +327,93 @@
           toastr.warning("{{ Session::get('message') }}");
           break;
         case 'danger':
-          toastr.warning("{{ Session::get('message') }}");
-          break;
         case 'error':
           toastr.error("{{ Session::get('message') }}");
           break;
       }
       @endif
-        });
+});
     </script>
+
+    <!-- Page JS -->
+    <script src="{{ asset('dashboards/assets/js/dashboardss-analytics.js') }}"></script>
+
+    <!-- GitHub Widget -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- DataTable Initialization -->
+    <script>
+      function initializeDataTable(columnNames) {
+        var table;
+        if ($.fn.dataTable.isDataTable('#dataTable')) {
+          table = $('#dataTable').DataTable();
+        } else {
+          table = $('#dataTable').DataTable({
+            paging: false,
+            responsive: true,
+            dom: 'Bfrtip',
+            buttons: [
+              {
+                extend: 'print',
+                text: 'Print',
+                customize: function (win) {
+                  $(win.document.body).find('h1').text('Stock Genie');
+                  $(win.document.body).prepend('<img src="./images/logo/StockGenie.png" style="width:80px;height:80px;display:block;margin:auto;"/>');
+                  $(win.document.body).append('<a href="http://www.StockGenie.com" style="color:#007bff;">Visit our website: Stock Genie</a>');
+                },
+                exportOptions: {
+                  columns: function (idx, data, node) {
+                    return columnNames.includes($(node).text().trim());
+                  }
+                }
+              },
+              {
+                extend: 'excelHtml5',
+                text: 'Excel',
+                exportOptions: {
+                  columns: function (idx, data, node) {
+                    return columnNames.includes($(node).text().trim());
+                  }
+                }
+              },
+              {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                exportOptions: {
+                  columns: function (idx, data, node) {
+                    return columnNames.includes($(node).text().trim());
+                  }
+                },
+                customize: function (doc) {
+                  doc.content.splice(0, 0, {
+                    text: 'Stock Genie',
+                    fontSize: 20,
+                    bold: true,
+                    margin: [0, 0, 0, 12]
+                  });
+                  doc.content.push({
+                    text: 'Visit our website: Stock Genie',
+                    link: 'http://www.StockGenie.com',
+                    color: '#007bff'
+                  });
+                  doc.defaultStyle.font = 'Roboto';
+                  doc.styles = {
+                    Roboto: {
+                      normal: 'Roboto-Regular.ttf',
+                      bold: 'Roboto-Bold.ttf',
+                      italics: 'Roboto-Italic.ttf',
+                      bolditalics: 'Roboto-BoldItalic.ttf'
+                    }
+                  };
+                }
+              }
+            ]
+          });
+        }
+      }
+    </script>
+
+    <!-- Image Preview -->
     <script>
       function readURL(input) {
         if (input.files && input.files[0]) {
@@ -348,102 +427,9 @@
           reader.readAsDataURL(input.files[0]);
         }
       }
-
     </script>
-    	<!-- DataTables -->
-      <script src="{{asset('dataTable/jquery.dataTables.min.js')}}"></script>
-      <script src="{{asset('dataTable/dataTables.buttons.min.js')}}"></script>
-      <script src="{{asset('dataTable/dataTables.searchBuilder.min.js')}}"></script>
-      <script src="{{asset('dataTable/dataTables.dateTime.min.js')}}"></script>
-      <script src="{{asset('dataTable/jszip.min.js')}}"></script>
-      <script src="{{asset('dataTable/pdfmake.min.js')}}"></script>
-      <!-- <script src="{{asset('dataTable/vfs_fonts.js')}}"></script> -->
-      <script src="{{asset('dataTable/buttons.html5.min.js')}}"></script>
-      <script src="{{asset('dataTable/buttons.print.min.js')}}"></script>
-      <script src="{{asset('dataTable/pdfmake.1.36.min.js')}}"></script>
 
-      @yield('script')
-    	<script>
-        // Initialize DataTable with embedded fonts in PDF
-        function initializeDataTable(columnNames) {
-          var table;
-
-          if ($.fn.dataTable.isDataTable('#dataTable')) {
-            table = $('#dataTable').DataTable();
-          } else {
-            table = $('#dataTable').DataTable({
-              paging: false,
-              responsive: true,
-              dom: 'Bfrtip',
-              buttons: [
-                {
-                  extend: 'print',
-                  text: 'Print',
-                  customize: function (win) {
-                    $(win.document.body).find('h1').text('Stock Genie');
-                    $(win.document.body).prepend('<img src="./images/logo/StockGenie.png" style="width:80px;height:80px;display:block;margin:auto;"/>');
-                    $(win.document.body).append('<a href="http://www.StockGenie.com" style="color:#007bff;">Visit our website: Stock Genie</a>');
-                  },
-                  exportOptions: {
-                    columns: function (idx, data, node) {
-                      return columnNames.includes($(node).text().trim());
-                    }
-                  }
-                },
-                {
-                  extend: 'excelHtml5',
-                  text: 'Excel',
-                  exportOptions: {
-                    columns: function (idx, data, node) {
-                      return columnNames.includes($(node).text().trim());
-                    }
-                  }
-                },
-                {
-                  extend: 'pdfHtml5',
-                  text: 'PDF',
-                  exportOptions: {
-                    columns: function (idx, data, node) {
-                      return columnNames.includes($(node).text().trim());
-                    }
-                  },
-                  customize: function (doc) {
-                    doc.content.splice(0, 0, {
-                      text: 'Stock Genie',
-                      fontSize: 20,
-                      bold: true,
-                      margin: [0, 0, 0, 12]
-                    });
-                    // Optionally include logo image if needed
-                    // doc.content.splice(1, 0, {
-                    //     image: 'StockGenie.png',
-                    //     width: 50,
-                    //     alignment: 'center',
-                    //     margin: [0, 0, 0, 12]
-                    // });
-                    doc.content.push({
-                      text: 'Visit our website: Stock Genie',
-                      link: 'http://www.StockGenie.com',
-                      color: '#007bff'
-                    });
-
-                    // Embed fonts directly into the PDF document
-                    doc.defaultStyle.font = 'Roboto';
-                    doc.styles = {
-                      Roboto: {
-                        normal: 'Roboto-Regular.ttf',
-                        bold: 'Roboto-Bold.ttf',
-                        italics: 'Roboto-Italic.ttf',
-                        bolditalics: 'Roboto-BoldItalic.ttf'
-                      }
-                    };
-                  }
-                }
-              ]
-            });
-          }
-        }
-	  </script>
+    @yield('script') <!-- Additional scripts can be added here -->
 
 
 </body>
