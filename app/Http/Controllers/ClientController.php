@@ -90,7 +90,7 @@ class ClientController extends Controller
             'postalCode' => 'required|string|max:10',
         ]);
 
-    shopping_addresses::create([
+        shopping_addresses::create([
             'phoneNumber'=>$request->phoneNumber,
             'presentAddress'=>$request->presentAddress,
             'postalCode'=>$request->postalCode,

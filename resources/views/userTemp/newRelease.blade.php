@@ -2,13 +2,11 @@
 
 @section('main')
 
-  
 @php
 $date = date('Y-m-d');
 $product = DB::table('products')->get();   
 
 @endphp
-
 
 <!-- fashion section start -->
 <div class="fashion_section" style="margin-top:10px">

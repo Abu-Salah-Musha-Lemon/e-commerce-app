@@ -124,36 +124,122 @@
 
 
 	@php
-	// Import necessary classes
-	//use Carbon\Carbon;
+// Import necessary classes
+//use Carbon\Carbon;
 
-	// Fetch recent orders (last 10)
-	$recentOrders = DB::table('Orders')
-	->orderBy('created_at', 'desc')
-	->take(10)
-	->get();
+// Fetch recent orders (last 10)
+$recentOrders = DB::table('Orders')
+    ->orderBy('created_at', 'desc')
+    ->take(10)
+    ->get();
 
-	// Fetch top-selling products
-	$topSellingProducts = DB::table('Orders')
-	->select('ProductId', DB::raw('SUM(ProductQty) as total_quantity'))
-	->groupBy('ProductId')
-	->orderBy('total_quantity', 'desc')
-	->take(5)
-	->get();
+// Fetch top-selling products
+$topSellingProducts = DB::table('Orders')
+    ->select('ProductId', DB::raw('SUM(ProductQty) as total_quantity'))
+    ->groupBy('ProductId')
+    ->orderBy('total_quantity', 'desc')
+    ->take(5)
+    ->get();
 
-	// Fetch abandoned carts
-	//$abandonedCarts = DB::table('Carts')
-	//->where('status', 'abandoned')
-	// ->count();
+// Fetch abandoned carts
+//$abandonedCarts = DB::table('Carts')
+    //->where('status', 'abandoned')
+   // ->count();
 
-	// Fetch pending orders
-	$pendingOrders = DB::table('Orders')
-	->where('Status', 'pending')
-	->count();
-	@endphp
+// Fetch pending orders
+$pendingOrders = DB::table('Orders')
+    ->where('Status', 'pending')
+    ->count();
+@endphp
 
-	<!-- Sales and Order Management -->
-	<h5 class="fw-bold py-1 mb-1"> <span class='text-muted fw-light'>Sales and Order Management</span></h5>
+<!-- Sales and Order Management -->
+<h5 class="fw-bold py-1 mb-1"> <span class='text-muted fw-light'>Sales and Order Management</span></h5>
+<section class="row">
+    <div class="col-12 col-lg-12">
+        <div class="row">
+
+            <div class="col-6 col-lg-3 col-md-6 my-2">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon purple">
+                                    <i class="iconly-boldShow"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Recent Orders (Last 10)</h6>
+                                <h6 class="font-extrabold mb-0">{{ $recentOrders->count() }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3 col-md-6 my-2">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon blue">
+                                    <i class="iconly-boldProfile"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Top Selling Products</h6>
+                                <h6 class="font-extrabold mb-0">{{ $topSellingProducts->sum('total_quantity') }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3 col-md-6 my-2">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon green">
+                                    <i class="iconly-boldAdd-User"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Abandoned Carts</h6>
+                                <h6 class="font-extrabold mb-0"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3 col-md-6 my-2">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon red">
+                                    <i class="iconly-boldBookmark"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Pending Orders</h6>
+                                <h6 class="font-extrabold mb-0">{{ $pendingOrders }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+	<!-- Customer Insights
+New Customers This Month
+Customer Feedback Ratings
+Most Active Customers -->
+	<h5 class="fw-bold py-1 mb-1"> <span class='text-muted fw-light'>Customer Insights</span></h5>
 	<section class="row">
 		<div class="col-12 col-lg-12">
 			<div class="row">
@@ -168,8 +254,8 @@
 									</div>
 								</div>
 								<div class="col-md-8">
-									<h6 class="text-muted font-semibold">Recent Orders (Last 10)</h6>
-									<h6 class="font-extrabold mb-0">{{ $recentOrders->count() }}</h6>
+									<h6 class="text-muted font-semibold">New Customers This Month</h6>
+									<h6 class="font-extrabold mb-0">112.000</h6>
 								</div>
 							</div>
 						</div>
@@ -186,8 +272,8 @@
 									</div>
 								</div>
 								<div class="col-md-8">
-									<h6 class="text-muted font-semibold">Top Selling Products</h6>
-									<h6 class="font-extrabold mb-0">{{ $topSellingProducts->sum('total_quantity') }}</h6>
+									<h6 class="text-muted font-semibold">Customer Feedback Ratings</h6>
+									<h6 class="font-extrabold mb-0">183.000</h6>
 								</div>
 							</div>
 						</div>
@@ -204,8 +290,213 @@
 									</div>
 								</div>
 								<div class="col-md-8">
-									<h6 class="text-muted font-semibold">Abandoned Carts</h6>
-									<h6 class="font-extrabold mb-0"></h6>
+									<h6 class="text-muted font-semibold">Most Active Customers</h6>
+									<h6 class="font-extrabold mb-0">80.000</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- Inventory Management
+Low Stock Products
+Out of Stock Products
+Newly Added Products -->
+	<h5 class="fw-bold py-1 mb-1"> <span class='text-muted fw-light'>Inventory Management</span></h5>
+
+	<section class="row">
+		<div class="col-12 col-lg-12">
+			<div class="row">
+
+				<div class="col-6 col-lg-3 col-md-6 my-2">
+					<div class="card">
+						<div class="card-body px-3 py-4-5">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="stats-icon purple">
+										<i class="iconly-boldShow"></i>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<h6 class="text-muted font-semibold">Low Stock Products</h6>
+									<h6 class="font-extrabold mb-0">112.000</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-6 col-lg-3 col-md-6 my-2">
+					<div class="card">
+						<div class="card-body px-3 py-4-5">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="stats-icon blue">
+										<i class="iconly-boldProfile"></i>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<h6 class="text-muted font-semibold">Out of Stock Products</h6>
+									<h6 class="font-extrabold mb-0">183.000</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-6 col-lg-3 col-md-6 my-2">
+					<div class="card">
+						<div class="card-body px-3 py-4-5">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="stats-icon green">
+										<i class="iconly-boldAdd-User"></i>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<h6 class="text-muted font-semibold">Newly Added Products</h6>
+									<h6 class="font-extrabold mb-0">80.000</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- Marketing Performance
+Active Promotions/Coupons
+Traffic Sources
+Conversion Rate -->
+	<h5 class="fw-bold py-1 mb-1"> <span class='text-muted fw-light'>Marketing Performance</span></h5>
+
+	<section class="row">
+		<div class="col-12 col-lg-12">
+			<div class="row">
+
+				<div class="col-6 col-lg-3 col-md-6 my-2">
+					<div class="card">
+						<div class="card-body px-3 py-4-5">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="stats-icon purple">
+										<i class="iconly-boldShow"></i>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<h6 class="text-muted font-semibold">Active Promotions/Coupons</h6>
+									<h6 class="font-extrabold mb-0">112.000</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-6 col-lg-3 col-md-6 my-2">
+					<div class="card">
+						<div class="card-body px-3 py-4-5">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="stats-icon blue">
+										<i class="iconly-boldProfile"></i>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<h6 class="text-muted font-semibold">Traffic Sources</h6>
+									<h6 class="font-extrabold mb-0">183.000</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-6 col-lg-3 col-md-6 my-2">
+					<div class="card">
+						<div class="card-body px-3 py-4-5">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="stats-icon green">
+										<i class="iconly-boldAdd-User"></i>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<h6 class="text-muted font-semibold">Conversion Rate</h6>
+									<h6 class="font-extrabold mb-0">80.000</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- Other Useful Widgets
+Pending Customer Inquiries
+Refunds/Returns
+Sales Trends (Graph)
+Wishlist Statistics -->
+	<h5 class="fw-bold py-1 mb-1"> <span class='text-muted fw-light'>Other Useful Widgets</span></h5>
+
+	<section class="row">
+		<div class="col-12 col-lg-12">
+			<div class="row">
+
+				<div class="col-6 col-lg-3 col-md-6 my-2">
+					<div class="card">
+						<div class="card-body px-3 py-4-5">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="stats-icon purple">
+										<i class="iconly-boldShow"></i>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<h6 class="text-muted font-semibold">Pending Customer Inquiries</h6>
+									<h6 class="font-extrabold mb-0">112.000</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-6 col-lg-3 col-md-6 my-2">
+					<div class="card">
+						<div class="card-body px-3 py-4-5">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="stats-icon blue">
+										<i class="iconly-boldProfile"></i>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<h6 class="text-muted font-semibold">Refunds/Returns</h6>
+									<h6 class="font-extrabold mb-0">183.000</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-6 col-lg-3 col-md-6 my-2">
+					<div class="card">
+						<div class="card-body px-3 py-4-5">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="stats-icon green">
+										<i class="iconly-boldAdd-User"></i>
+									</div>
+								</div>
+								<div class="col-md-8">
+									<h6 class="text-muted font-semibold">Sales Trends (Graph)</h6>
+									<h6 class="font-extrabold mb-0">80.000</h6>
 								</div>
 							</div>
 						</div>
@@ -222,19 +513,18 @@
 									</div>
 								</div>
 								<div class="col-md-8">
-									<h6 class="text-muted font-semibold">Pending Orders</h6>
-									<h6 class="font-extrabold mb-0">{{ $pendingOrders }}</h6>
+									<h6 class="text-muted font-semibold">Wishlist Statistics</h6>
+									<h6 class="font-extrabold mb-0">112</h6>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
+
 		</div>
 	</section>
 
-	
 	<section class="row my-2">
 		<div class="col-12 col-lg-12">
 			<div class="row">

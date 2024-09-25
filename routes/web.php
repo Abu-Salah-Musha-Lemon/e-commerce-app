@@ -18,9 +18,8 @@ Route::controller(HomeController::class)->group(function () {
 Route::controller(ClientController::class)->group(function () {
     Route::get('/category/{id}/{slug}', 'CategoryPage')->name('categoryPage');
     Route::get('/single-product/{id}', 'singleProduct')->name('singleProduct');
-    Route::get('/checkout', 'checkout')->name('checkout');
     Route::get('/new-release', 'newRelease')->name('newRelease');
-    Route::get('/todays-deal', 'todaysDeal')->name('todaysDeal');
+   
 });
 
 // Authenticated User Routes
@@ -40,10 +39,11 @@ Route::middleware(['auth', 'role:user'])->group(function () {
         Route::get('/user-profile/pending-order', 'pendingOrder')->name('pendingOrder');
         Route::get('/shopping-address', 'shoppingAddress')->name('shoppingAddress');
         Route::get('/user-profile/history', 'userHistory')->name('userHistory');
-        Route::get('/checkout', 'checkout')->name('checkout');
+        Route::get('/checkout', 'checkout')->name('checkOut');
         Route::get('/orders', 'orderStore')->name('orders');
         Route::get('/orders/cancel', 'orderCancel')->name('orderCancel');
         Route::get('/customer-service', 'customerService')->name('customerService');
+        Route::get('/todays-deal', 'todaysDeal')->name('todaysDeal');
     });
 });
 
