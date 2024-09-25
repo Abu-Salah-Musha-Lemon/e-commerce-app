@@ -15,33 +15,27 @@ The **eCommerce Single Admin WebApp** is a powerful platform tailored for small 
 
 ## Technology Stack
 
-- **Frontend**: HTML, CSS, JavaScript, jQuery DataTable, Bootstrap, Toastr
+- **Frontend**: HTML, CSS, JavaScript, jQuery, Bootstrap, Toastr
 - **Backend**: Laravel 11
+- **Database**: MySQL
 - **Authentication**: Breez
 - **Roles and Permissions**: Laratrust
 
-## Usage / Use
-
-Access the application in your browser at `http://localhost:8000` (or the URL provided by the `php artisan serve` command).
-
-1. **User Login**: Users can log in using their credentials.
-2. **User Logout**: Users can log out to secure their accounts.
-3. **Order Products**: Users can browse products and place orders.
-4. **Admin Actions**: Admins can manage products, categories, view sales, and process or cancel orders.
 ## Installation
 
 ### Prerequisites
 
-- PHP 8.2.12
+- PHP >= 8.2.12
 - Composer
 - Node.js and npm
+- MySQL
 
 ### Setup Steps
 
 1. **Clone the repository**:
 
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/Abu-Salah-Musha-Lemon/ecommerce-single-admin-webapp.git
    cd ecommerce-single-admin-webapp
    ```
 
@@ -51,31 +45,50 @@ Access the application in your browser at `http://localhost:8000` (or the URL pr
    composer install
    ```
 
-3. **Generate application key**:
+3. **Create a new MySQL database**:
+
+   ```sql
+   CREATE DATABASE ecommerce_db;
+   ```
+
+4. **Configure your `.env` file**:
+
+   Update the database connection settings in your `.env` file:
+
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=ecommerce_db
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+   ```
+
+5. **Generate application key**:
 
    ```bash
    php artisan key:generate
    ```
 
-4. **Cache the configuration**:
+6. **Cache the configuration**:
 
    ```bash
    php artisan config:cache
    ```
 
-5. **Install npm packages**:
+7. **Install npm packages**:
 
    ```bash
    npm install
    ```
 
-6. **Run Laravel migrations**:
+8. **Run Laravel migrations**:
 
    ```bash
    php artisan migrate
    ```
 
-7. **Run the development server**:
+9. **Run the development server**:
 
    ```bash
    php artisan serve
@@ -148,6 +161,14 @@ class User extends Authenticatable implements LaratrustUser
 }
 ```
 
+## Usage
+
+Access the application in your browser at `http://localhost:8000` (or the URL provided by the `php artisan serve` command).
+
+1. **User Login**: Users can log in using their credentials.
+2. **User Logout**: Users can log out to secure their accounts.
+3. **Order Products**: Users can browse products and place orders.
+4. **Admin Actions**: Admins can manage products, categories, view sales, and process or cancel orders.
 
 ## License
 
@@ -159,4 +180,3 @@ This project is licensed under the MIT License.
 - **Bootstrap** and **jQuery**: For frontend design.
 - **Laratrust**: For role and permission management.
 
-For any issues or feature requests, please open an issue in this repository. Happy coding!
