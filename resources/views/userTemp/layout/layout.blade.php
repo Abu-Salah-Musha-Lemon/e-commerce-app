@@ -86,7 +86,7 @@
 					<div class="container">
 							<div class="row">
 									<div class="col-sm-12">
-											<div class="logo"><a href="{{ route('home') }}"><img src="{{ asset('userTemp/images/logo.png') }}"></a></div>
+											<div class="logo"><a href="{{ route('home') }}">ASML</div>
 									</div>
 							</div>
 					</div>
@@ -209,7 +209,7 @@
 	<!-- footer section start -->
 	<div class="footer_section layout_padding">
 			<div class="container">
-					<div class="footer_logo"><a href="{{ route('home') }}"><img src="{{ asset('userTemp/images/footer-logo.png') }}"></a></div>
+					<div class="footer_logo"><a href="{{ route('home') }}">ASML</a></div>
 					<div class="footer_menu">
 							<ul>
 									<li><a href="{{ route('home') }}">Gift Ideas</a></li>
